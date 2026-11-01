@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Semester report · USYD Semester Simulator{% endblock %}
+{% macro effect_chips(effects) -%}
+<div class="effect-list report-effects">
+  {% for key, value in effects.items() %}
+    <i class="{% if value < 0 %}effect-down{% else %}effect-up{% endif %}">{% if key == 'money' %}{{ '−' if value < 0 else '+' }}${{ "{:,.0f}".format(value|abs) }}{% else %}{{ stat_labels.get(key, key|title) }} {{ '%+d'|format(value) }}{% endif %}</i>
+  {% endfor %}
+</div>
+{%- endmacro %}
+{% block content %}
+<section class="report-hero">
+  <div class="eyebrow"><span class="eyebrow-dot"></span> SEMESTER COMPLETE · 12 WEEKS</div>
+  <h1>A semester that was<br><em>uniquely yours.</em></h1>
+  <p>{{ state.profile.name }} · {{ state.profile.masters_degree }} · {{ state.profile.faculty }}</p>
+  <span class="outcome-pill">{{ report.outcome }}</span>
+</section>
+
+<section class="report-narrative panel"><div class="report-mark">“</div><div><div class="event-label">YOUR SEMESTER, REFLECTED</div><p>{{ report.narrative }}</p></div></section>
+
+<section class="report-section">
+  <div class="section-heading"><span class="section-icon">◉</span><div><h2>How things changed</h2><p>Your starting point and final result across six parts of student life.</p></div></div>
+  <div class="panel comparison-panel">
+    <div class="comparison-legend"><span><i class="legend-start"></i> Start</span><span><i class="legend-end"></i> Finish</span></div>
+    {% for key in stat_order %}
+      <div class="comparison-row"><div class="comparison-label"><span>{{ stat_labels[key] }}</span><strong>{{ state.profile.initial_stats[key] }} <i>→</i> {{ state.stats[key] }}</strong></div><div class="compare-bars"><div class="compare-track"><i class="bar-start" style="width: {{ state.profile.initial_stats[key] }}%"></i></div><div class="compare-track"><i class="bar-end" style="width: {{ state.stats[key] }}%"></i></div></div></div>
+    {% endfor %}
+    <div class="money-comparison"><div><span>Starting money</span><strong>${{ "{:,.2f}".format(state.profile.initial_money) }}</strong></div><span class="money-arrow">→</span><div><span>Final balance</span><strong class="{% if state.money < 0 %}negative{% endif %}">${{ "{:,.2f}".format(state.money) }}{% if state.money < 0 %} debt{% endif %}</strong></div></div>
+  </div>
+</section>
+
+<details class="history-drawer progress-drawer"><summary>View all 12 weekly statistic snapshots <span>12 weeks × 6 statistics</span></summary><div class="table-scroll"><table class="transaction-table progress-table"><thead><tr><th>Week</th>{% for key in stat_order %}<th>{{ stat_labels[key] }}</th>{% endfor %}</tr></thead><tbody>{% for row in state.stat_history %}<tr><td>Week {{ loop.index }}</td>{% for value in row %}<td><div class="snapshot-cell"><span>{{ value }}</span><i><b style="width: {{ value }}%"></b></i></div></td>{% endfor %}</tr>{% endfor %}</tbody></table></div></details>
+
+<section class="report-section">
+  <div class="section-heading"><span class="section-icon orange">$</span><div><h2>The money story</h2><p>Every figure in AUD, from the transactions recorded during play.</p></div></div>
+  <div class="finance-grid">
+    <div class="finance-tile"><span>Starting balance</span><strong>${{ "{:,.2f}".format(state.financial_summary.starting_balance) }}</strong></div>
+    <div class="finance-tile income"><span>Family support</span><strong>+${{ "{:,.2f}".format(state.financial_summary.total_family_support) }}</strong></div>
+    <div class="finance-tile income"><span>Employment income</span><strong>+${{ "{:,.2f}".format(state.financial_summary.total_employment_income) }}</strong></div>
+    <div class="finance-tile income"><span>Other income</span><strong>+${{ "{:,.2f}".format(state.financial_summary.total_other_income) }}</strong></div>
+    <div class="finance-tile expense"><span>Total expenses</span><strong>−${{ "{:,.2f}".format(state.financial_summary.total_expenses) }}</strong></div>
+    <div class="finance-tile"><span>Money sent to family</span><strong>${{ "{:,.2f}".format(state.financial_summary.money_sent_to_family) }}</strong></div>
+  </div>
+</section>
+
+<section class="report-section">
+  <div class="section-heading"><span class="section-icon">↗</span><div><h2>Turning points</h2><p>Weeks with a larger choice, activity or unexpected change.</p></div></div>
+  <div class="turning-grid">{% for point in report.turning_points %}<article class="turning-point"><span>✳</span><p>{{ point }}</p></article>{% else %}<p class="muted">Your semester had no unusually large single-week shifts; smaller choices accumulated over time.</p>{% endfor %}<article class="turning-point trend-point"><span>↗</span><p>Longest stretch of week-to-week wellbeing improvement: <strong>{{ report.wellbeing_streak }} week{% if report.wellbeing_streak != 1 %}s{% endif %}</strong>.</p></article></div>
+</section>
+
+<section class="report-section">
+  <div class="section-heading"><span class="section-icon orange">▤</span><div><h2>All twelve weeks</h2><p>Your responses, consequences, activities and surprises in the order they happened.</p></div></div>
+  <div class="panel event-history">
+    {% for item in state.week_history %}
+      <article class="report-week">
+        <div class="report-week-num">{{ "%02d"|format(item.week) }}<small>WEEK</small></div>
+        <div class="report-week-copy">
+          <h3>{{ item.event_title }}</h3><p>Response: {{ item.choice_label }}</p>{{ effect_chips(item.choice_effects) }}
+          {% if item.unexpected %}<p class="surprise-text">Unexpected: {{ item.unexpected.title }} — {{ item.unexpected.narrative }}</p>{{ effect_chips(item.unexpected.actual_effects) }}{% endif %}
+          <span class="activity-chip">Activity · {{ item.activity }}</span>{{ effect_chips(item.activity_effects) }}
+        </div>
+        <div class="report-week-balance">${{ "{:,.2f}".format(item.ending_money) }}<small>balance</small></div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<details class="history-drawer transactions-drawer"><summary>Full transaction history <span>{{ state.transactions|length }} transactions</span></summary><div class="table-scroll"><table class="transaction-table"><thead><tr><th>Week</th><th>Transaction</th><th>Type</th><th>Amount</th><th>Balance</th></tr></thead><tbody>{% for transaction in state.transactions %}<tr><td>{{ transaction.week }}</td><td>{{ transaction.description }}</td><td class="{{ transaction.kind }}">{{ transaction.kind|title }}</td><td class="{{ transaction.kind }}">{% if transaction.kind == 'expense' %}−{% else %}+{% endif %}${{ "{:,.2f}".format(transaction.amount) }}</td><td>${{ "{:,.2f}".format(transaction.balance) }}</td></tr>{% endfor %}</tbody></table></div></details>
+
+<section class="report-profile"><div><div class="eyebrow">THE STUDENT BEHIND THE STORY</div><h2>{{ state.profile.name }}</h2><p>{{ state.profile.masters_degree }} · Year {{ state.profile.year }} · {{ state.profile.faculty }}</p></div><div class="profile-tags"><span>{{ state.profile.socioeconomic_background|title }}</span><span>{{ state.profile.family_responsibilities }} family responsibilities</span><span>{{ state.profile.living_arrangement }}</span><span>{{ state.lifestyle.housing }}, {{ state.lifestyle.food|lower }}, {{ state.lifestyle.transport|lower }}</span></div></section>
+<form class="again-form" method="post" action="{{ url_for('restart') }}"><div><h2>Try another semester?</h2><p>A new name creates a new profile, circumstances and surprise schedule.</p></div><button class="button button-primary" type="submit">Play again <span aria-hidden="true">↗</span></button></form>
+{% endblock %}

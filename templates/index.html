@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Start · USYD Semester Simulator{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR SEMESTER, YOUR STORY</div>
+    <h1>Every week is a<br><em>balancing act.</em></h1>
+    <p class="hero-lede">Step into a randomly generated Master's student story at the University of Sydney. Make choices across study, money, health, friendships, career and family over twelve weeks.</p>
+    <form class="start-form" method="post" action="{{ url_for('index') }}">
+      <label for="student-name">What should we call you?</label>
+      <div class="input-action"><input id="student-name" name="name" maxlength="40" placeholder="Enter your name" required autocomplete="name"><button class="button button-primary" type="submit">Create my student <span aria-hidden="true">↗</span></button></div>
+    </form>
+    {% if state %}<div class="resume-note"><span>●</span> A semester is saved on this computer. Creating a new profile replaces it. <a href="{{ url_for('profile') if state.status == 'profile' else url_for('report') if state.status == 'complete' else url_for('game') }}">Continue saved game →</a></div>{% endif %}
+    {% if save_problem %}<div class="resume-note warning">{{ save_problem }} Starting a new game will replace the damaged save.</div>{% endif %}
+  </div>
+  <div class="hero-art" aria-label="Illustration of a student planning a semester">
+    <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+    <div class="art-sun"></div><div class="art-card card-calendar"><span>SEMESTER PLAN</span><strong>12<span> weeks</span></strong><div class="calendar-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="art-card card-balance"><span>THIS WEEK</span><strong>Find your<br>balance.</strong><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="art-person"><div class="person-head"></div><div class="person-body"></div><div class="person-book"></div></div>
+    <span class="art-label label-study">STUDY</span><span class="art-label label-life">LIFE</span>
+  </div>
+</section>
+<section class="intro-strip"><span class="strip-number">01 / 12</span><p>One main event. One activity. A handful of surprises. Each new game starts with a different student, set of circumstances and path through semester.</p><span class="strip-mark">✳</span></section>
+<section class="feature-row"><article><span class="feature-index">01</span><h2>Start somewhere different</h2><p>Meet a new student profile with a faculty, family story, finances and starting point shaped by chance.</p></article><article><span class="feature-index">02</span><h2>Choose what matters today</h2><p>Decide how to respond to the week's event, then spend your time on one activity.</p></article><article><span class="feature-index">03</span><h2>See the whole picture</h2><p>Follow your choices across twelve weeks, then review the changes in a personal report.</p></article></section>
+{% endblock %}

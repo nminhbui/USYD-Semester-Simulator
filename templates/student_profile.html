@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Student profile · USYD Semester Simulator{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> BEFORE THE SEMESTER</div><h1>Meet {{ state.profile.name }}.</h1><p>Your starting circumstances are generated for this playthrough. Choose the weekly routine that feels right.</p></div><span class="step-pill">PROFILE <b>01</b> / 02</span></div>
+<div class="profile-layout">
+  <section class="panel profile-panel"><div class="section-heading"><span class="section-icon">✳</span><div><h2>Student profile</h2><p>Master's student · University of Sydney</p></div></div>
+    <div class="profile-identity"><div class="avatar">{{ state.profile.name[0]|upper }}</div><div><h3>{{ state.profile.name }}</h3><p>{{ state.profile.masters_degree }} · Year {{ state.profile.year }}</p></div></div>
+    <div class="profile-grid">
+      <div><span>FACULTY / SCHOOL</span><strong>{{ state.profile.faculty }}</strong></div><div><span>BACHELOR'S DEGREE</span><strong>{{ state.profile.bachelor_degree }}{% if state.profile.related_bachelor %} <small class="tag">related</small>{% endif %}</strong></div>
+      <div><span>LIVING ARRANGEMENT</span><strong>{{ state.profile.living_arrangement }}</strong></div><div><span>EMPLOYMENT</span><strong>{{ state.profile.employment_status }}</strong></div>
+      <div><span>WORK EXPERIENCE</span><strong>{{ state.profile.work_experience }}</strong></div><div><span>BACKGROUND</span><strong>{{ state.profile.socioeconomic_background|title }}</strong></div>
+    </div>
+    <div class="family-box"><div class="family-box-title"><span>FAMILY CIRCUMSTANCES</span><span class="tag">{{ state.profile.family_responsibilities }} responsibilities</span></div><p>{{ state.profile.siblings }} sibling{% if state.profile.siblings != 1 %}s{% endif %} · {{ state.profile.parents_health }} · {{ state.profile.family_relationship }}</p><p>Family expectations: {{ state.profile.family_expectations|lower }}.</p><div class="support-line"><span>Monthly family support</span><strong>${{ "{:,.0f}".format(state.profile.monthly_family_support) }} <small>AUD</small></strong></div></div>
+    <div class="initial-stats"><div class="family-box-title"><span>STARTING POINT</span><span class="muted">These can change during play.</span></div><div class="stat-grid">{% for key in stat_order %}<div class="stat-mini"><div><span>{{ stat_labels[key] }}</span><b>{{ state.stats[key] }}</b></div><div class="meter"><i style="width: {{ state.stats[key] }}%"></i></div></div>{% endfor %}</div><div class="money-start"><span>Starting money</span><strong>${{ "{:,.0f}".format(state.money) }} <small>AUD</small></strong></div></div>
+  </section>
+  <form class="panel lifestyle-panel" method="post" action="{{ url_for('profile') }}">
+    <div class="section-heading"><span class="section-icon orange">⌂</span><div><h2>Set your routine</h2><p>Recurring costs and small effects apply every week.</p></div></div>
+    {% for category, title, symbol in [('housing', 'Where will you live?', '⌂'), ('food', 'How will you eat?', '◒'), ('transport', 'How will you get around?', '↗')] %}
+      <fieldset class="choice-group"><legend><span class="choice-symbol">{{ symbol }}</span>{{ title }}</legend>
+      {% for name, details in options[category].items() %}
+        <label class="lifestyle-option"><input type="radio" name="{{ category }}" value="{{ name }}" {% if loop.first %}checked{% endif %} required><span class="option-content"><strong>{{ name }}</strong><small>${{ details.cost }} / week{% if details.get('wellbeing') %} · Wellbeing {{ '%+d'|format(details.wellbeing) }}{% endif %}{% if details.get('health') %} · Health {{ '%+d'|format(details.health) }}{% endif %}{% if name == 'Walk' %} · +2 Health near campus{% endif %}</small></span><span class="radio-dot"></span></label>
+      {% endfor %}</fieldset>
+    {% endfor %}
+    <div class="assumption-note">Living costs are simplified game assumptions, not current Sydney cost estimates.</div>
+    <button class="button button-primary button-full" type="submit">Start the semester <span aria-hidden="true">↗</span></button>
+  </form>
+</div>
+{% endblock %}

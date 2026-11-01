@@ -1,0 +1,137 @@
+{
+  "main_events": [
+    {
+      "week": 1,
+      "title": "Settling into University",
+      "narrative": "Your Master's semester begins. You can use the first week to prepare for study or get to know the people and routines around campus.",
+      "choices": [
+        {"id": "academic_preparation", "label": "Focus on academic preparation", "description": "Organise your subjects and get ahead on the reading.", "effects": {"academic": 5, "wellbeing": -2, "social": -1}},
+        {"id": "orientation", "label": "Attend orientation and meet new people", "description": "Join the orientation activities and start making connections. Costs $20.", "effects": {"money": -20, "wellbeing": 2, "social": 5, "career": 1}}
+      ]
+    },
+    {
+      "week": 2,
+      "title": "First Assignment",
+      "narrative": "The first major assignment is approaching. You are deciding how to balance preparation, collaboration and rest.",
+      "choices": [
+        {"id": "start_early", "label": "Start early and organise a study schedule", "description": "Make a plan and work steadily. It takes a little energy.", "effects": {"academic": 6, "health": -1, "wellbeing": -1}},
+        {"id": "work_with_classmates", "label": "Work on the assignment with classmates", "description": "Share ideas and make progress together.", "effects": {"academic": 3, "wellbeing": 1, "social": 3}},
+        {"id": "delay_assignment", "label": "Delay the assignment and relax", "description": "Take a break now and accept the risk of falling behind.", "effects": {"academic": -4, "wellbeing": 2}}
+      ]
+    },
+    {
+      "week": 3,
+      "title": "Financial Pressure",
+      "narrative": "Your expenses are higher than expected. You need to decide how to respond to the pressure on your budget.",
+      "choices": [
+        {"id": "reduce_spending", "label": "Reduce personal spending", "description": "Keep $40 available by cutting back this week.", "effects": {"money": 40, "wellbeing": -2}},
+        {"id": "additional_work", "label": "Accept additional work", "description": "Earn $100, with less time and energy for study.", "effects": {"money": 100, "academic": -2, "wellbeing": -2, "career": 1}},
+        {"id": "ask_family", "label": "Ask family for additional financial help", "description": "Request a one-off $150 contribution.", "requires_family_help": true, "effects": {"money": 150, "family": 1, "wellbeing": 1}}
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Group Assignment Conflict",
+      "narrative": "A group member is not contributing fairly. How you respond could affect both the work and the group dynamic.",
+      "choices": [
+        {"id": "take_responsibility", "label": "Take responsibility and complete more of the work", "description": "Protect the assignment result at a personal cost.", "effects": {"academic": 5, "health": -2, "wellbeing": -3}},
+        {"id": "divide_tasks", "label": "Communicate and divide tasks fairly", "description": "Talk with the group and agree on clear responsibilities.", "effects": {"academic": 3, "social": 3, "wellbeing": 1}},
+        {"id": "avoid_conflict", "label": "Avoid confrontation and complete only your own part", "description": "Keep your workload limited, with some risk to the group outcome.", "effects": {"academic": -2, "social": -2, "wellbeing": -1}}
+      ]
+    },
+    {
+      "week": 5,
+      "title": "Campus Social Event",
+      "narrative": "A social event is being organised on campus. You can go, stay in to study, or make a shorter appearance.",
+      "choices": [
+        {"id": "attend_event", "label": "Attend the event", "description": "Spend time with other students. Costs $40.", "effects": {"money": -40, "wellbeing": 3, "social": 6}},
+        {"id": "stay_home_study", "label": "Stay home and study", "description": "Make academic progress but miss some social time.", "effects": {"academic": 5, "wellbeing": -2, "social": -1}},
+        {"id": "attend_briefly", "label": "Attend briefly and leave early", "description": "Join for a while without giving up the whole evening. Costs $20.", "effects": {"money": -20, "academic": 1, "wellbeing": 1, "social": 3}}
+      ]
+    },
+    {
+      "week": 6,
+      "title": "Family Expectations",
+      "narrative": "Family members ask how your studies are going and what you plan to do next. You decide how much time to give the conversation.",
+      "choices": [
+        {"id": "talk_family", "label": "Spend time talking with family", "description": "Reconnect and listen, leaving a little less time for study.", "effects": {"family": 6, "wellbeing": 2, "academic": -1}},
+        {"id": "postpone_conversation", "label": "Focus on study and postpone the conversation", "description": "Use the time for coursework, while family may feel distant.", "effects": {"academic": 4, "family": -3, "wellbeing": -2}},
+        {"id": "discuss_expectations", "label": "Explain your situation honestly and discuss expectations", "description": "Make time to talk openly about what is manageable.", "effects": {"family": 4, "wellbeing": 2, "academic": 1}}
+      ]
+    },
+    {
+      "week": 7,
+      "title": "Career Opportunity",
+      "narrative": "You find out about a career development opportunity. You can build professional connections, develop a skill, or focus on current coursework.",
+      "choices": [
+        {"id": "networking_event", "label": "Attend a professional networking event", "description": "Meet people in your field. Costs $20 and may open an internship pathway.", "effects": {"money": -20, "career": 6, "social": 3, "wellbeing": -1}},
+        {"id": "professional_skills", "label": "Improve technical or professional skills", "description": "Spend time on a practical skill and build your career profile.", "effects": {"career": 5, "academic": 2, "health": -1}},
+        {"id": "prioritise_coursework", "label": "Prioritise current coursework", "description": "Keep your attention on the semester's academic work.", "effects": {"academic": 5, "career": -1, "wellbeing": 1}}
+      ]
+    },
+    {
+      "week": 8,
+      "title": "Academic Challenge",
+      "narrative": "A difficult assessment needs extra attention. You can work independently, seek guidance or protect more personal time.",
+      "choices": [
+        {"id": "extra_study", "label": "Dedicate extra time to study", "description": "Push hard for progress, at a cost to health and wellbeing.", "effects": {"academic": 7, "health": -2, "wellbeing": -3}},
+        {"id": "ask_tutor", "label": "Ask a lecturer or tutor for help", "description": "Get guidance and a clearer path through the assessment.", "effects": {"academic": 5, "wellbeing": 2, "career": 1}},
+        {"id": "protect_personal_time", "label": "Accept a lower result and protect personal time", "description": "Step back from the assessment and recover some energy.", "effects": {"academic": -3, "health": 2, "wellbeing": 4}}
+      ]
+    },
+    {
+      "week": 9,
+      "title": "Friendship and Relationships",
+      "narrative": "A friend needs support, but your week is already busy. You choose how to respond to them.",
+      "choices": [
+        {"id": "support_friend", "label": "Spend time supporting your friend", "description": "Be present for your friend, using time set aside for study.", "effects": {"social": 5, "wellbeing": 3, "academic": -1}},
+        {"id": "reschedule_friend", "label": "Explain that you are busy and arrange another time", "description": "Keep the connection while protecting some study time.", "effects": {"social": 1, "wellbeing": 1, "academic": 2}},
+        {"id": "ignore_friend", "label": "Ignore the situation", "description": "Stay focused on your own week, though the friendship may suffer.", "effects": {"social": -4, "wellbeing": -2}}
+      ]
+    },
+    {
+      "week": 10,
+      "title": "Part-time Work Opportunity",
+      "narrative": "You receive an opportunity to take on additional work. More shifts could help financially, but would take time and energy.",
+      "choices": [
+        {"id": "accept_shifts", "label": "Accept more shifts", "description": "Earn $150 and gain work experience, with a heavier week.", "effects": {"money": 150, "career": 3, "academic": -2, "health": -2, "wellbeing": -2}},
+        {"id": "decline_shifts", "label": "Decline and focus on university", "description": "Leave more time for study and recovery.", "effects": {"academic": 4, "wellbeing": 2}},
+        {"id": "fewer_shifts", "label": "Negotiate fewer shifts", "description": "Earn $70 while keeping a more manageable workload.", "effects": {"money": 70, "career": 2, "academic": 1, "wellbeing": 1}}
+      ]
+    },
+    {
+      "week": 11,
+      "title": "Family Responsibility",
+      "narrative": "A family situation needs your attention. You consider how to share your time and what support is practical.",
+      "choices": [
+        {"id": "prioritise_family", "label": "Prioritise family responsibilities", "description": "Give family more of your time, leaving less for coursework.", "effects": {"family": 6, "wellbeing": 2, "academic": -3}},
+        {"id": "support_remotely", "label": "Continue studying and provide support remotely", "description": "Stay on your study plan while keeping in contact.", "effects": {"academic": 3, "family": 2, "wellbeing": -1}},
+        {"id": "share_responsibility", "label": "Ask other family members to share the responsibility", "description": "Work out a shared approach and keep some study time.", "effects": {"family": 3, "wellbeing": 2, "academic": 1}}
+      ]
+    },
+    {
+      "week": 12,
+      "title": "End-of-Semester Decisions",
+      "narrative": "The semester is almost over. You decide how to use the remaining time before the break.",
+      "choices": [
+        {"id": "final_assessments", "label": "Prepare intensively for final assessments", "description": "Focus on exams and assignments, with a cost to health and wellbeing.", "effects": {"academic": 6, "health": -2, "wellbeing": -2}},
+        {"id": "career_planning", "label": "Focus on career planning and future opportunities", "description": "Look ahead while keeping up with coursework.", "effects": {"career": 5, "academic": 1, "wellbeing": 2}},
+        {"id": "recover_and_reconnect", "label": "Take time to recover and reconnect with others", "description": "End the semester with rest and time with people who matter.", "effects": {"health": 4, "wellbeing": 5, "social": 2}}
+      ]
+    }
+  ],
+  "unexpected_events": [
+    {"id": "parents_extra_money", "title": "A little extra support", "narrative": "Your parents send some extra money to help with the week.", "effects": {"money": 200, "wellbeing": 3}, "category": "other_income"},
+    {"id": "family_member_ill", "title": "News from home", "narrative": "A family member has become ill. You feel concerned and check in with them.", "effects": {"family": -3, "wellbeing": -5}, "category": "other"},
+    {"id": "laptop_breaks", "title": "Laptop trouble", "narrative": "Your laptop breaks at a difficult time. A repair costs $350.", "effects": {"money": -350, "academic": -2, "wellbeing": -2}, "category": "expense"},
+    {"id": "student_sick", "title": "A week under the weather", "narrative": "You become sick and need to pay for medication and take time to recover.", "effects": {"money": -80, "health": -12, "wellbeing": -4}, "category": "expense"},
+    {"id": "wallet_lost", "title": "A lost wallet", "narrative": "You lose your wallet. The missing cash is a setback.", "effects": {"wellbeing": -3}, "variable_money": [-100, -200, -300], "category": "expense"},
+    {"id": "rent_increases", "title": "Rent increase notice", "narrative": "Your rent will cost an extra $50 per week from next week onward.", "effects": {"wellbeing": -2}, "rent_increase": 50, "category": "other"},
+    {"id": "shift_cancelled", "title": "A cancelled work shift", "narrative": "A work shift is cancelled at short notice, reducing your expected pay.", "effects": {"money": -100, "wellbeing": -1}, "category": "employment_income"},
+    {"id": "extra_shift", "title": "An extra work shift", "narrative": "A short-notice work shift becomes available. You take it on.", "effects": {"money": 120, "wellbeing": -1}, "category": "employment_income"},
+    {"id": "transport_disruption", "title": "Transport disruption", "narrative": "A public transport disruption makes your trip to campus harder this week.", "effects": {"wellbeing": -2, "academic": -1}, "category": "other"},
+    {"id": "care_package", "title": "A care package from home", "narrative": "A family care package arrives with a thoughtful note.", "effects": {"wellbeing": 4, "family": 2}, "category": "other"},
+    {"id": "medical_expense", "title": "Unexpected medical expense", "narrative": "An unexpected medical expense uses some of your budget.", "effects": {"money": -150, "health": -3}, "category": "expense"},
+    {"id": "friend_support", "title": "Support from a friend", "narrative": "A close friend notices you have a lot going on and offers support.", "effects": {"social": 4, "wellbeing": 3}, "category": "other"}
+  ]
+}
